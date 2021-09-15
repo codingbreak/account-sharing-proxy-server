@@ -3,4 +3,6 @@ Account sharing proxy server
 
 Run the proxy_server.py script in Python
 
-Go to your browser's proxy settings and change the proxy server to 'localhost' and port to '12345' 
+Go to your browser's proxy settings and change the proxy server to 'localhost' and port to '12345'
+
+Visit http://wttr.in/grenoble, http://apache.org/, http://www.gnu.org/, http://nginx.org/  
