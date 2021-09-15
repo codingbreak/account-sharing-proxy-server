@@ -93,9 +93,10 @@ class Server:
         """
 
         # Get the request from browser
+        # request = 'GET http://wttr.in/Grenoble HTTP/1.1\r\n ...'
         request = conn.recv(self.config['MAX_REQUEST_LEN'])
         print(request)
-        if not request:
+        if not request:                 # if request is in the cache ?
             conn.close()
             return
 
