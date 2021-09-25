@@ -1,8 +1,10 @@
 # account-sharing-proxy-server
 Account sharing proxy server
 
-Run the proxy_server.py script in Python
+Install Flask:
+sudo apt install python3-flask
 
-Go to your browser's proxy settings and change the proxy server to 'localhost' and port to '12345'
-
-Visit http://wttr.in/grenoble, http://apache.org/, http://www.gnu.org/, http://nginx.org/  
+Run application:
+export FLASK_APP=proxy_app.py
+flask run
+Go to http://localhost:5000/, http://localhost:5000/about 
