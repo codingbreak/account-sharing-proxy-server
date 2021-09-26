@@ -1,5 +1,6 @@
-from flask import Flask, request, Response 
-from requests import get, post   
+import time
+from flask import Flask, request, Response, g  
+import requests  
 import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -19,22 +20,26 @@ def index():
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def proxy(path):
     # print(request)
+    start = time.perf_counter()
 
     if request.method == 'GET':
-        resp = get(f'{SITE_NAME}{path}')
-        headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() not in excluded_headers]
-        # removed_headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() in excluded_headers]
-        # pp.pprint(removed_headers)
-        response = Response(resp.content, resp.status_code, headers)
-        return response
+        resp = requests.get(f'{SITE_NAME}{path}')
 
     elif request.method == 'POST':
-        resp = post(f'{SITE_NAME}{path}', json=request.get_json()) # file consent ?
-        headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() not in excluded_headers]
-        # removed_headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() in excluded_headers]
-        # pp.pprint(removed_headers)
-        response = Response(resp.content, resp.status_code, headers)
-        return response
+        resp = requests.post(f'{SITE_NAME}{path}', json=request.get_json()) # file consent ?
+
+    headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() not in excluded_headers]
+    # removed_headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() in excluded_headers]
+    # pp.pprint(removed_headers)
+    response = Response(resp.content, resp.status_code, headers)
+    
+    request_time = time.perf_counter() - start
+
+    print('Proxy - Target Server: {:.1f} ms'.format(resp.elapsed.total_seconds()*1000))
+    print('Others: {:.1f} ms'.format(request_time*1000-resp.elapsed.total_seconds()*1000))
+    
+    return response
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
