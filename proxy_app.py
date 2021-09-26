@@ -1,9 +1,7 @@
 import time
 from flask import Flask, request, Response, g  
 import requests  
-import pprint
 
-pp = pprint.PrettyPrinter(indent=4)
 
 app = Flask(__name__)  # Python web backend library
 SITE_NAME = 'https://stackoverflow.com/'
@@ -19,7 +17,7 @@ def index():
 
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def proxy(path):
-    # print(request)
+    # print(request.headers)
     start = time.perf_counter()
 
     if request.method == 'GET':
@@ -30,7 +28,7 @@ def proxy(path):
 
     headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() not in excluded_headers]
     # removed_headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() in excluded_headers]
-    # pp.pprint(removed_headers)
+    # print(removed_headers)
     response = Response(resp.content, resp.status_code, headers)
     
     request_time = time.perf_counter() - start
