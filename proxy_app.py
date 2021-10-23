@@ -4,6 +4,7 @@ import logging
 
 
 app = Flask(__name__, static_url_path='/nothing')  # Python web backend library
+# app.config["CACHE_TYPE"] = "null"
 
 # hop-by-hop headers
 excluded_headers = ['content-encoding',       
@@ -17,13 +18,13 @@ SITE_NAME = 'https://reqbin.com/'
 
 @app.route('/')
 def index():
-    app.logger.info('home page')
+    app.logger.info('query %s', SITE_NAME)
     return SITE_NAME
 
 
 @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def proxy(path):
-    app.logger.info('query %s with method %s', path, request.method)
+    app.logger.info('query %s%s with method %s', SITE_NAME, path, request.method)
 
     resp = requests.request(
         method=request.method,
