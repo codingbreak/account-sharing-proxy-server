@@ -6,9 +6,11 @@ from collections import Callable
 
 @pytest.fixture
 def client():
-	from proxy_app import app
+	import proxy_app 
 
-	with app.test_client() as client:
+	proxy_app.SITE_NAME = 'https://reqbin.com/'
+
+	with proxy_app.app.test_client() as client:
 		yield client
 
 
