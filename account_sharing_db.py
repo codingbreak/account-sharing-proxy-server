@@ -1,12 +1,10 @@
 from sqlalchemy import Table, Column, String, Integer, JSON
 from sqlalchemy import ForeignKey
 from sqlalchemy import MetaData, create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base, relationship
+from sqlalchemy.orm import declarative_base, relationship
 
-engine = create_engine('sqlite:///:memory:', echo=True)
 base = declarative_base()
-Session = sessionmaker(bind=engine)
-session = Session()
+
 
 class User(base):
 	__tablename__ = 'user_account'
@@ -15,7 +13,7 @@ class User(base):
 	name = Column(String(30))
 	fullname = Column(String(50))
 	email = Column(String(50), nullable=False)
-	password = Column(String(30), nullable=False)
+	# password = Column(String(30), nullable=False)
 
 	credentials = relationship("Credential", back_populates="user")
 
@@ -48,4 +46,6 @@ class Sharing(base):
 	credential = relationship("Credential", back_populates="shared_users")
 	
 
-base.metadata.create_all(engine)
+if __name__ == "__main__":
+	engine = create_engine('sqlite:///:memory:', echo=True)
+	base.metadata.create_all(engine)
