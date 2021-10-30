@@ -1,20 +1,17 @@
-from flask import Flask, request, Response, g
-import requests  
-import logging
-
+import requests
+from flask import Flask, request, Response
 
 app = Flask(__name__, static_url_path='/nothing')  # Python web backend library
 # app.config["CACHE_TYPE"] = "null"
 
 # hop-by-hop headers
-excluded_headers = ['content-encoding',       
-                    'content-length',       
-                    'transfer-encoding',    
-                    'connection']   
+excluded_headers = ['content-encoding',
+                    'content-length',
+                    'transfer-encoding',
+                    'connection']
 
 # SITE_NAME = 'https://reqbin.com/'
-SITE_NAME = 'https://stackoverflow.com/'       
-
+SITE_NAME = 'https://stackoverflow.com/'
 
 @app.route('/')
 def index():
@@ -36,9 +33,7 @@ def proxy(path):
 
     # Remove hop-by-hop headers
     headers = [(name, value) for (name, value) in resp.raw.headers.items() if name.lower() not in excluded_headers]
-    
     response = Response(resp.content, resp.status_code, headers)
-    
     return response
 
 
