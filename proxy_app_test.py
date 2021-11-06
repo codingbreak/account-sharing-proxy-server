@@ -1,17 +1,10 @@
-import os
-import tempfile
 import pytest
-
-from collections import Callable
 
 
 @pytest.fixture
-def client():
-    import proxy_app
+def client(test_app):
 
-    proxy_app.SITE_NAME = "https://reqbin.com/"
-
-    with proxy_app.app.test_client() as client:
+    with test_app.test_client() as client:
         yield client
 
 

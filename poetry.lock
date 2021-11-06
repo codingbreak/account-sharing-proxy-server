@@ -8,7 +8,7 @@ python-versions = "*"
 
 [[package]]
 name = "charset-normalizer"
-version = "2.0.7"
+version = "2.0.8"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
 category = "main"
 optional = false
@@ -72,7 +72,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "jinja2"
-version = "3.0.2"
+version = "3.0.3"
 description = "A very fast and expressive template engine."
 category = "main"
 optional = false
@@ -145,7 +145,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "types-click"
-version = "7.1.7"
+version = "7.1.8"
 description = "Typing stubs for click"
 category = "dev"
 optional = false
@@ -153,7 +153,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-flask"
-version = "1.1.4"
+version = "1.1.6"
 description = "Typing stubs for Flask"
 category = "dev"
 optional = false
@@ -166,7 +166,7 @@ types-Werkzeug = "*"
 
 [[package]]
 name = "types-jinja2"
-version = "2.11.8"
+version = "2.11.9"
 description = "Typing stubs for Jinja2"
 category = "dev"
 optional = false
@@ -177,7 +177,7 @@ types-MarkupSafe = "*"
 
 [[package]]
 name = "types-markupsafe"
-version = "1.1.8"
+version = "1.1.10"
 description = "Typing stubs for MarkupSafe"
 category = "dev"
 optional = false
@@ -185,7 +185,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.25.11"
+version = "2.26.1"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
@@ -193,7 +193,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-werkzeug"
-version = "1.0.7"
+version = "1.0.9"
 description = "Typing stubs for Werkzeug"
 category = "dev"
 optional = false
@@ -201,11 +201,11 @@ python-versions = "*"
 
 [[package]]
 name = "typing-extensions"
-version = "3.10.0.2"
-description = "Backported and Experimental Type Hints for Python 3.5+"
+version = "4.0.0"
+description = "Backported and Experimental Type Hints for Python 3.6+"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6"
 
 [[package]]
 name = "urllib3"
@@ -242,8 +242,8 @@ certifi = [
     {file = "certifi-2021.10.8.tar.gz", hash = "sha256:78884e7c1d4b00ce3cea67b44566851c4343c120abd683433ce934a68ea58872"},
 ]
 charset-normalizer = [
-    {file = "charset-normalizer-2.0.7.tar.gz", hash = "sha256:e019de665e2bcf9c2b64e2e5aa025fa991da8720daa3c1138cadd2fd1856aed0"},
-    {file = "charset_normalizer-2.0.7-py3-none-any.whl", hash = "sha256:f7af805c321bfa1ce6714c51f254e0d5bb5e5834039bc17db7ebe3a4cec9492b"},
+    {file = "charset-normalizer-2.0.8.tar.gz", hash = "sha256:735e240d9a8506778cd7a453d97e817e536bb1fc29f4f6961ce297b9c7a917b0"},
+    {file = "charset_normalizer-2.0.8-py3-none-any.whl", hash = "sha256:83fcdeb225499d6344c8f7f34684c2981270beacc32ede2e669e94f7fa544405"},
 ]
 click = [
     {file = "click-8.0.3-py3-none-any.whl", hash = "sha256:353f466495adaeb40b6b5f592f9f91cb22372351c84caeb068132442a4518ef3"},
@@ -266,8 +266,8 @@ itsdangerous = [
     {file = "itsdangerous-2.0.1.tar.gz", hash = "sha256:9e724d68fc22902a1435351f84c3fb8623f303fffcc566a4cb952df8c572cff0"},
 ]
 jinja2 = [
-    {file = "Jinja2-3.0.2-py3-none-any.whl", hash = "sha256:8569982d3f0889eed11dd620c706d39b60c36d6d25843961f33f77fb6bc6b20c"},
-    {file = "Jinja2-3.0.2.tar.gz", hash = "sha256:827a0e32839ab1600d4eb1c4c33ec5a8edfbc5cb42dafa13b81f182f97784b45"},
+    {file = "Jinja2-3.0.3-py3-none-any.whl", hash = "sha256:077ce6014f7b40d03b47d1f1ca4b0fc8328a692bd284016f806ed0eaca390ad8"},
+    {file = "Jinja2-3.0.3.tar.gz", hash = "sha256:611bb273cd68f3b993fabdc4064fc858c5b47a973cb5aa7999ec1ba405c87cd7"},
 ]
 markupsafe = [
     {file = "MarkupSafe-2.0.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f9081981fe268bd86831e5c75f7de206ef275defcb82bc70740ae6dc507aee51"},
@@ -343,33 +343,32 @@ toml = [
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
 types-click = [
-    {file = "types-click-7.1.7.tar.gz", hash = "sha256:fff7ea52619581401a90cb9247e1a7e95c29084cfdbc26b7a49ed94c40fcd3d8"},
-    {file = "types_click-7.1.7-py3-none-any.whl", hash = "sha256:64dd3dc1fe5ed7e105b7a0479a6aebdd3c132c474c54f42a744af1bfba1989fd"},
+    {file = "types-click-7.1.8.tar.gz", hash = "sha256:b6604968be6401dc516311ca50708a0a28baa7a0cb840efd7412f0dbbff4e092"},
+    {file = "types_click-7.1.8-py3-none-any.whl", hash = "sha256:8cb030a669e2e927461be9827375f83c16b8178c365852c060a34e24871e7e81"},
 ]
 types-flask = [
-    {file = "types-Flask-1.1.4.tar.gz", hash = "sha256:09306465574a1b42c48fa4a83458fbb0cd9a46df20f6901e4bf148550126cc85"},
-    {file = "types_Flask-1.1.4-py3-none-any.whl", hash = "sha256:ed06c39b5838eed4e099c5fc0117714097975d86177b1663c4fb547a5f7ff298"},
+    {file = "types-Flask-1.1.6.tar.gz", hash = "sha256:aac777b3abfff9436e6b01f6d08171cf23ea6e5be71cbf773aaabb1c5763e9cf"},
+    {file = "types_Flask-1.1.6-py3-none-any.whl", hash = "sha256:6ab8a9a5e258b76539d652f6341408867298550b19b81f0e41e916825fc39087"},
 ]
 types-jinja2 = [
-    {file = "types-Jinja2-2.11.8.tar.gz", hash = "sha256:8331174ba46bc4570b65edc5c6828bb0aec8a93b1e487fc5e878aad5e373ae21"},
-    {file = "types_Jinja2-2.11.8-py3-none-any.whl", hash = "sha256:f80f29dbf8fec4a3c0f3ee1c9504235757232e739881325a78c14858814012a4"},
+    {file = "types-Jinja2-2.11.9.tar.gz", hash = "sha256:dbdc74a40aba7aed520b7e4d89e8f0fe4286518494208b35123bcf084d4b8c81"},
+    {file = "types_Jinja2-2.11.9-py3-none-any.whl", hash = "sha256:60a1e21e8296979db32f9374d8a239af4cb541ff66447bb915d8ad398f9c63b2"},
 ]
 types-markupsafe = [
-    {file = "types-MarkupSafe-1.1.8.tar.gz", hash = "sha256:b2940f4faab46be0f9509b2f98ea9ff36d058f89fa113d98ae07cdc7958ec15f"},
-    {file = "types_MarkupSafe-1.1.8-py3-none-any.whl", hash = "sha256:08ca3cf19abab0476a1efe4a82af6d21471573e08c1e5e065e26aa78a1b552ad"},
+    {file = "types-MarkupSafe-1.1.10.tar.gz", hash = "sha256:85b3a872683d02aea3a5ac2a8ef590193c344092032f58457287fbf8e06711b1"},
+    {file = "types_MarkupSafe-1.1.10-py3-none-any.whl", hash = "sha256:ca2bee0f4faafc45250602567ef38d533e877d2ddca13003b319c551ff5b3cc5"},
 ]
 types-requests = [
-    {file = "types-requests-2.25.11.tar.gz", hash = "sha256:b279284e51f668e38ee12d9665e4d789089f532dc2a0be4a1508ca0efd98ba9e"},
-    {file = "types_requests-2.25.11-py3-none-any.whl", hash = "sha256:ba1d108d512e294b6080c37f6ae7cb2a2abf527560e2b671d1786c1fc46b541a"},
+    {file = "types-requests-2.26.1.tar.gz", hash = "sha256:0893e112e1510bbb67f537941c92192de7472e51bf7f236e0e583866f0ed933e"},
+    {file = "types_requests-2.26.1-py3-none-any.whl", hash = "sha256:853571b3accc188976c0f4feffcaebf6cdfc170082b5e43f3358aa78de61f531"},
 ]
 types-werkzeug = [
-    {file = "types-Werkzeug-1.0.7.tar.gz", hash = "sha256:2e8779fd17856ce4e2cc7eeb1446bfb9afc43fd1a5b067265a4f13d6f7f68499"},
-    {file = "types_Werkzeug-1.0.7-py3-none-any.whl", hash = "sha256:dc0972040f0f043b813ab574079b0b101a44d434d67bf1695afffc6b0aad0362"},
+    {file = "types-Werkzeug-1.0.9.tar.gz", hash = "sha256:5cc269604c400133d452a40cee6397655f878fc460e03fde291b9e3a5eaa518c"},
+    {file = "types_Werkzeug-1.0.9-py3-none-any.whl", hash = "sha256:194bd5715a13c598f05c63e8a739328657590943bce941e8a3619a6b5d4a54ec"},
 ]
 typing-extensions = [
-    {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},
-    {file = "typing_extensions-3.10.0.2-py3-none-any.whl", hash = "sha256:f1d25edafde516b146ecd0613dabcc61409817af4766fbbcfb8d1ad4ec441a34"},
-    {file = "typing_extensions-3.10.0.2.tar.gz", hash = "sha256:49f75d16ff11f1cd258e1b988ccff82a3ca5570217d7ad8c5f48205dd99a677e"},
+    {file = "typing_extensions-4.0.0-py3-none-any.whl", hash = "sha256:829704698b22e13ec9eaf959122315eabb370b0884400e9818334d8b677023d9"},
+    {file = "typing_extensions-4.0.0.tar.gz", hash = "sha256:2cdf80e4e04866a9b3689a51869016d36db0814d84b8d8a568d22781d45d27ed"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.7-py2.py3-none-any.whl", hash = "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"},
