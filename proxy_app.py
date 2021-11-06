@@ -1,8 +1,12 @@
 import requests
 from flask import Flask, request, Response
+from urllib.parse import urlparse
+import http.client  # or  if you're on Python 3
+
 
 app = Flask(__name__, static_url_path="/nothing")  # Python web backend library
-# app.config["CACHE_TYPE"] = "null"
+app.config["CACHE_TYPE"] = "null"
+http.client._MAXHEADERS = 1000
 
 # hop-by-hop headers
 excluded_headers = [
@@ -12,7 +16,7 @@ excluded_headers = [
     "connection",
 ]
 
-# SITE_NAME = "https://reqbin.com/"
+# SITE_NAME = "https://www.youtube.com/" # "https://www.wsj.com/" # "https://reqbin.com/"
 SITE_NAME = "https://stackoverflow.com/"
 
 
@@ -24,6 +28,20 @@ def index():
 
 @app.route("/<path:path>", methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
 def proxy(path):
+    """e.g. http://localhost:5000/stackoverflow.com/tour"""
+
+    if ".com" in path: 
+        """web-based interface, e.g. http://localhost:5000/stackoverflow.com/tour"""
+        request_url = urlparse("https://" + path)
+        if "http" in path:
+            request_url = urlparse(path)
+
+        global SITE_NAME
+        SITE_NAME = "https://" + request_url.netloc + "/"
+        
+        request.url = SITE_NAME + request_url.path[1:]
+        path = request_url.path[1:]
+
     app.logger.info("query %s%s with method %s", SITE_NAME, path, request.method)
 
     resp = requests.request(
@@ -42,6 +60,7 @@ def proxy(path):
         if name.lower() not in excluded_headers
     ]
     response = Response(resp.content, resp.status_code, headers)
+
     return response
 
 
