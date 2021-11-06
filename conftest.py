@@ -9,18 +9,20 @@ def test_app():
     app = create_app()
     yield app
 
-    db.drop_all()
+    with app.app_context():
+        db.drop_all()
 
 
 @pytest.fixture(autouse=True)
-def session():
-    # Setup database
-    db.create_all()
+def session(test_app):
+    with test_app.app_context():
+        # Setup database
+        db.create_all()
 
-    yield db.session
+        yield db.session
 
-    # Clear data after each test
-    meta = db.metadata
-    for table in reversed(meta.sorted_tables):
-        db.session.execute(table.delete())
-    db.session.commit()
+        # Clear data after each test
+        meta = db.metadata
+        for table in reversed(meta.sorted_tables):
+            db.session.execute(table.delete())
+        db.session.commit()
