@@ -2,19 +2,17 @@
 name = "account-sharing-proxy-server"
 version = "0.1.0"
 description = ""
-authors = [""]
+authors = ["doanguyen <dungnv2410@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.9"
 Flask = "^2.0.2"
 requests = "^2.26.0"
-Flask-SQLAlchemy = "^2.5.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.910"
 types-Flask = "^1.1.4"
 types-requests = "^2.25.11"
-pytest = "^6.2.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
