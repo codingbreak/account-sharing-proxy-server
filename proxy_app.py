@@ -47,7 +47,7 @@ def proxy(path):
     resp = requests.request(
         method=request.method,
         url=request.url.replace(request.host_url, SITE_NAME),
-        headers={key: value for (key, value) in request.headers if key != "Host"},
+        headers={key: value for (key, value) in request.headers if key != "Host"}, # if key != "Host"
         data=request.get_data(),
         cookies=request.cookies,
         allow_redirects=False,
