@@ -1,5 +1,7 @@
 import requests
 from flask import Flask, Response, request
+from urllib.parse import urlparse
+import http.client 
 
 from database import db
 
@@ -16,6 +18,11 @@ excluded_headers = [
 
 def create_app(site_name: str = SITE_NAME) -> Flask:
     app = Flask(__name__, static_url_path="/nothing")  # Python web backend library
+    app.config["CACHE_TYPE"] = "null"
+    http.client._MAXHEADERS = 1000
+
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
     db.init_app(app)
 
     @app.route("/")
@@ -25,6 +32,19 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
 
     @app.route("/<path:path>", methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
     def proxy(path) -> Response:
+        # simple web-based test for exemple http://localhost:5000/stackoverflow.com/tour
+        if ".com" in path: 
+            request_url = urlparse("https://" + path)
+            if "http" in path:
+                request_url = urlparse(path)
+
+            nonlocal site_name
+            site_name = "https://" + request_url.netloc + "/"
+
+            request.url = site_name + request_url.path[1:]
+            path = request_url.path[1:]
+
+        # main app
         app.logger.info("query %s%s with method %s", site_name, path, request.method)
 
         resp = requests.request(
