@@ -18,7 +18,7 @@ class Credential(db.Model):
     website = db.Column(db.String(50), nullable=False)
     keys_values = db.Column(db.JSON)
 
-    user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.ForeignKey("user.id"), nullable=False)
     user = db.relationship("User", backref=db.backref("credentials", lazy=True))
 
     def __repr__(self):
@@ -28,8 +28,10 @@ class Credential(db.Model):
 class Shared_User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
-    credential_id = db.Column(db.ForeignKey('credential.id'), nullable=False)
-    credential = db.relationship("Credential", backref=db.backref("shared_users", lazy=True))
+    credential_id = db.Column(db.ForeignKey("credential.id"), nullable=False)
+    credential = db.relationship(
+        "Credential", backref=db.backref("shared_users", lazy=True)
+    )
 
-    shared_user_id = db.Column(db.ForeignKey('user.id'), nullable=False)
+    shared_user_id = db.Column(db.ForeignKey("user.id"), nullable=False)
     shared_user = db.relationship("User", backref=db.backref("shared_users"))
