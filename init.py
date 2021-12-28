@@ -6,6 +6,7 @@ import http.client
 from database import db
 
 SITE_NAME = "https://stackoverflow.com/"
+credentials = {}
 
 # hop-by-hop headers
 excluded_headers = [
@@ -17,7 +18,7 @@ excluded_headers = [
 
 
 def create_app(site_name: str = SITE_NAME) -> Flask:
-    app = Flask(__name__, static_url_path="/nothing")  # Python web backend library
+    app = Flask(__name__, static_url_path="/nothing")  
     app.config["CACHE_TYPE"] = "null"
     http.client._MAXHEADERS = 1000
 
@@ -38,30 +39,48 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
             if "http" in path:
                 request_url = urlparse(path)
 
-            nonlocal site_name
+            nonlocal site_name      # proxy function can rewrite site_name
             site_name = "https://" + request_url.netloc + "/"
 
             request.url = site_name + request_url.path[1:]
             path = request_url.path[1:]
 
-        # main app
-        app.logger.info("query %s%s with method %s", site_name, path, request.method)
+        ### main app
+        # app.logger.info("query %s%s with method %s", site_name, path, request.method)
+        # global credentials
 
+        # modify cookies
+        cookies = {"_ga": "GA1.2.175757698.1640032605",
+                   "_gat": "1",
+                   "_gid": "GA1.2.1897489970.1640032605",
+                   "prov": "abf315bc-9ba0-ef69-5af3-c3d79eaeca92"}
+
+        # proxy server sends request to web server
+        # s = requests.session()
         resp = requests.request(
             method=request.method,
             url=request.url.replace(request.host_url, site_name),
             headers={key: value for (key, value) in request.headers if key != "Host"},
             data=request.get_data(),
-            cookies=request.cookies,
+            cookies=cookies, #request.cookies,
             allow_redirects=False,
         )
 
-        # Remove hop-by-hop headers
+        # read cookies from website
+        if resp.status_code == 200:
+            # credentials[path] = resp.cookies
+            print("\tWebsite:", site_name, path, request.method, request.get_data())
+            print("\tRequest Cookies:", cookies) 
+            print("\tResponse Cookies:", resp.cookies.get_dict())
+
+        # change headers
         headers = [
             (name, value)
             for (name, value) in resp.raw.headers.items()
             if name.lower() not in excluded_headers
         ]
+        
+        # proxy server returns response to the website
         response = Response(resp.content, resp.status_code, headers)
         return response
 
