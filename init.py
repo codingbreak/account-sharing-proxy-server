@@ -50,6 +50,13 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
         # global credentials
 
         # modify cookies
+        cookies = {
+            "_ga": "GA1.2.175757698.1640032605",
+            "_gat": "1",
+            "_gid": "GA1.2.1897489970.1640032605",
+            "prov": "36428d0c-73f7-a53e-029b-6d7aa18db122",
+            "OptanonAlertBoxClosed": "2021-12-28T13:34:48.822Z",
+        }
         cookies = {"_ga": "GA1.2.175757698.1640032605",
                    "_gat": "1",
                    "_gid": "GA1.2.1897489970.1640032605",
@@ -60,7 +67,7 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
         resp = requests.request(
             method=request.method,
             url=request.url.replace(request.host_url, site_name),
-            headers={key: value for (key, value) in request.headers if key != "Host"},
+            # headers=headers,
             data=request.get_data(),
             cookies=cookies, #request.cookies,
             allow_redirects=False,
