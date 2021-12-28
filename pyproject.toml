@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "account-sharing-proxy-server"
 version = "0.1.0"
-description = ""
-authors = ["doanguyen <dungnv2410@gmail.com>"]
+description = "Selfhosted sharing accounts application"
+authors = ["codingbreak team"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
