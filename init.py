@@ -1,7 +1,7 @@
 import requests
 from flask import Flask, Response, request
 from urllib.parse import urlparse
-import http.client 
+import http.client
 
 from database import db
 
@@ -21,8 +21,8 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
     app.config["CACHE_TYPE"] = "null"
     http.client._MAXHEADERS = 1000
 
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///:memory:"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
     db.init_app(app)
 
     @app.route("/")
@@ -33,7 +33,7 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
     @app.route("/<path:path>", methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
     def proxy(path) -> Response:
         # simple web-based test for exemple http://localhost:5000/stackoverflow.com/tour
-        if ".com" in path: 
+        if ".com" in path:
             request_url = urlparse("https://" + path)
             if "http" in path:
                 request_url = urlparse(path)
