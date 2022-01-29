@@ -1,13 +1,19 @@
-# account-sharing-proxy-server
-Account sharing proxy server
+# Account sharing proxy server
 
-Install Flask:
-$ python3 -m pip install Flask
+Think about blablacar but for sharing services.
 
-Run application:
-$ export FLASK_APP=proxy_app.py FLASK_ENV=development
+## Prerequisites
 
-$ flask run
+- Python ^3.8
+- [Poetry](https://python-poetry.org/) dependency manager
+
+## Installation
+
+`$ poetry install --no-root`
+
+## Run application:
+
+`$ poetry run python app.py`
 
 Go to http://localhost:5000/, http://localhost:5000/about 
 

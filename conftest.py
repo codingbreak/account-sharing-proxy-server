@@ -1,7 +1,7 @@
 import pytest
 
-from database import db
-from init import create_app
+from app.models import db
+from app.init import create_app
 
 
 @pytest.fixture(autouse=True)
