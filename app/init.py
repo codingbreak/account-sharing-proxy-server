@@ -1,17 +1,17 @@
 import requests
-from flask import Flask, Response, json, request, jsonify
+from flask import Flask, Response, request, jsonify
 from urllib.parse import urlparse
 import http.client
 from flask_jwt_extended import create_access_token
 import os
 
-from database import User, db
-from flask_jwt_extended import JWTManager
+from app.models import User, db
+from app.extensions import jwt
 
-from decorators import json_only
+from app.decorators import json_only
 
 SITE_NAME = "https://stackoverflow.com/"
-jwt = JWTManager()
+
 # hop-by-hop headers
 excluded_headers = [
     "content-encoding",
