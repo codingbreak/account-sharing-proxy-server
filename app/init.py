@@ -1,9 +1,12 @@
+import logging
 import requests
 from flask import Flask, Response, request, jsonify
 from urllib.parse import urlparse
 import http.client
 from flask_jwt_extended import create_access_token
 import os
+
+import sqlalchemy
 
 from app.models import User, db
 from app.extensions import jwt
@@ -19,6 +22,8 @@ excluded_headers = [
     "transfer-encoding",
     "connection",
 ]
+
+logger = logging.getLogger(__name__)
 
 
 def create_app(site_name: str = SITE_NAME) -> Flask:
@@ -58,7 +63,7 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
         username = request.json.get("username", None)
         fullname = request.json.get("fullname", None)
         if not email or not password:
-            return jsonify({"msg": "Please provide both email and password"}, 400)
+            return jsonify({"msg": "Please provide both email and password"}), 400
         user = User.query.filter_by(email=email).first()
         if user:
             return jsonify({"msg": "Email exists"})
@@ -69,8 +74,18 @@ def create_app(site_name: str = SITE_NAME) -> Flask:
             username=username,
         )
         db.session.add(new_user)
-        db.session.commit()
-        return jsonify({"msg": "User is registered"}, 201)
+        try:
+            db.session.commit()
+        except sqlalchemy.exc.IntegrityError:
+            logger.warning(
+                "user register fail email=%s username=%s fullname=%s",
+                email,
+                username,
+                fullname,
+            )
+            db.session.rollback()
+            raise ValueError("User information is not correct")
+        return jsonify({"msg": "User is registered"}), 201
 
     @app.route("/<path:path>", methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
     def proxy(path) -> Response:
